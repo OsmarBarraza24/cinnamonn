@@ -1,0 +1,14 @@
+{
+  "name": "asesorias",
+  "version": "1.0.0",
+  "description": "Web Asesorias y tutorias isw",
+  "main": "js/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "Osmar Barraza",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^8.2.5"
+  }
+}
