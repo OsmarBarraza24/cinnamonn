@@ -39,7 +39,7 @@
                              <div class="form-group">
                             <input id="semestre" type="text" class="form-control" placeholder="Semestre">
                         </div>
-                        <button type="submit" class="btn"> <i class="fas fa-sign-in-alt"></i>Login</button>
+                        <button class="btn" type="submit"> <i class="fas fa-sign-in-alt"></i>Login</button>
                     </form>
             </div> <!--end-->
         </div>
@@ -50,30 +50,32 @@
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
      <script>
-         const id;
-         const nombre;
-         const apellidos;
-         const password;
-         const correo;
-         const tipo;
-         const semestre;
-         document.getElementById('id').textContent = id;
-         document.getElementById('nombre').textContent = nombre;
-         document.getElementById('apellidos').textContent = apellidos;
-         document.getElementById('password').textContent = password;
-         document.getElementById('correo').textContent = correo;
-         document.getElementById('tipo').textContent = tipo;
-         document.getElementById('semestre').textContent = semestre;
+         const form = document.querySelector('form');
+            form.addEventListener('submit', submitForm);
 
-         const datos = {correo,password,nombre,apellidos,tipo,semestre}
-         const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: JSON.stringify(datos)
-         };
-         fetch('http://localhost:3030/addUser',options);
+        function submitForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('id').value;
+            const nombre = document.getElementById('nombre').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const password = document.getElementById('password').value;
+            const correo = document.getElementById('correo').value;
+            const tipo = document.getElementById('tipo').value;
+            const semestre = document.getElementById('semestre').value;
+
+            const datos = {id, correo,password,nombre,apellidos,tipo,semestre}
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            };
+            fetch('http://localhost:3030/addUser',options).then(response =>{
+                console.log(response);
+            });
+        }
+         
      </script>
 
 </body>
