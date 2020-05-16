@@ -1,10 +1,99 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>Aesorías</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2">
+    <link rel="stylesheet" href="css/style.css">
 </head>
+
 <body>
-<h1>main</h1>
+    <div class="container-fluid">
+        <header class="row">
+            <div class="col-md-10">
+                <h1>Asesorias y cursos</h1>
+            </div>
+            <div class="col-md-2 align-self-end">
+                <p>Bienvenido, Osmar Barraza</p>
+            </div>
+        </header>     
+    </div>
+    <div class="container">
+        <div class="row container-main">
+            <div class="col">
+                <h3>Asesorías proximas</h3>
+                <hr>
+            </div>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-dark">
+                  <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Clase</th>
+                    <th scope="col">Asesor</th>
+                    <th scope="col">Semestre</th>
+                    <th scope="col">Aula</th>
+                    <th scope="col">Fecha</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <th scope="row">1</th>
+                    <td>Programación 3</td>
+                    <td>Jesus Adolfo Castro Alvarez</td>
+                    <td>8</td>
+                    <td>CITEV 922</td>
+                    <td>6/06/66</td>
+                  </tr>
+                  <tr>
+                    <th scope="row">2</th>
+                    <td>Base de datos avanzada</td>
+                    <td>Mario Alan Merel Tamayo</td>
+                    <td>8</td>
+                    <td>922 CITEV</td>
+                    <td>6/06/66</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>  
+        <div class="row justify-content-around">
+            <div onclick="goToAsesorias()" id="asesoria" class="col-md-3 widget text-center">
+                <h3>Asesorias disponibles</h3>
+                <i class="fas fa-chalkboard fa-6x"></i>
+                <p>Mira las asesorías disponibles en nuestra base de datos, y entra a la que te interese participar.</p>
+            </div>
+            <div onclick="goToAsesor()" id="asesor" class="col-md-3 widget text-center">
+                <h3 >¿Quieres ser asesor?</h3>
+                <i class="text-center fas fa-chalkboard-teacher fa-6x"></i>
+                <p>Si quieres ser asesor de alguna materia, da click aquí y rellena el formulario que se solicita.</p>
+            </div>
+        </div>
+    </div>
 </body>
+
+<script src="https://kit.fontawesome.com/90dc9c86e3.js" crossorigin="anonymous"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/jquery-3.5.0.min.js"></script>
+<script>
+
+
+
+    
+    function goToAsesorias(){
+        document.getElementById('asesoria');
+        window.location.replace('coursesView.html');    
+    }
+    
+    function goToAsesor(){
+        document.getElementById('asesor');
+        window.location.replace('formAsesor.html');
+    }
+
+
+
+
+</script>
 </html>

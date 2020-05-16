@@ -1,0 +1,45 @@
+body{
+    margin:0;
+    padding: 0;
+    background: #f0f3f5;
+    color: white;
+}
+
+header{
+    background: #006DB6;
+    padding:10px;
+    margin-bottom: 20px;
+}
+
+.container-main{
+    margin-bottom:20px;
+    color: black;
+}
+
+main{
+    background: #fff;
+    color: #424242;
+    padding: 20px 0;    
+}
+
+.widget{
+    background: #6F9CEB;
+    margin-top: 20px;
+    padding:15px;
+    transition:all 0.8s;
+}
+
+.widget-2{
+    background: rgb(31, 158, 243);
+}
+.widget:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+    -webkit-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    -moz-box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+    box-shadow: 3px 3px 5px 0px rgba(0,0,0,0.75);
+}
+
+.form-user{
+    color: black;
+}

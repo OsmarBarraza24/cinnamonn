@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2">
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+ 
+    <div class="modal-dialog text-center">
+        <div class="col-sm-8 main-section">
+            <div class="modal-content">
+<h2 id="prueba"></h2>
+                    <div class="col-12 user-img">
+                        <img src="img/user.png" alt="">
+                    </div>
+
+                    <form method="POST" class="col-12">
+                        <div class="form-group">
+                            <input id="id" type="text" class="form-control" placeholder="Id">
+                        </div>
+                        <div class="form-group">
+                            <input id="nombre" type="text" class="form-control" placeholder="Usuario">
+                        </div>
+                        <div class="form-group">
+                            <input id="psw" type="password" class="form-control" placeholder="Contraseña">
+                        </div>
+                        <div class="form-group">
+                            <input id="correo" type="text" class="form-control" placeholder="Correo">
+                        </div>
+                        <div class="form-group">
+                            <input id="apellidos" type="text" class="form-control" placeholder="Apellidos">
+                        </div>
+                        <div class="form-group">
+                            <input id="tipo" type="text" class="form-control" placeholder="Tipo">
+                        </div>
+                             <div class="form-group">
+                            <input id="semestre" type="text" class="form-control" placeholder="Semestre">
+                        </div>
+                        <button id="send" class="btn" type="submit"> <i class="fas fa-sign-in-alt"></i>Login</button>
+                    </form>
+            </div> <!--end-->
+        </div>
+    </div>
+
+    <script src="https://kit.fontawesome.com/90dc9c86e3.js" crossorigin="anonymous"></script>
+    <script src="js/main.js"></script>
+    <script src="js/jquery-3.5.0.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+     <script>
+
+
+         document.getElementById('send').onclick = async function(e){
+            e.preventDefault();
+            const id = document.getElementById("id").value;
+            const nombre = document.getElementById("nombre").value;
+            const apellidos = document.getElementById("apellidos").value;
+            const correo = document.getElementById("correo").value;
+            const psw = document.getElementById("psw").value;
+            const semestre = document.getElementById("semestre").value;
+        
+            const data = {id, correo, psw, nombre,apellidos,semestre};
+            const options = {
+                method: 'POST',
+                headers:{
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            const response = await fetch("http://localhost/addUser", options);
+            const json = await response.json();
+            console.log(json);
+            if(json.msg == "Correcto"){
+                sessionStorage.setItem('id',json.id);
+                sessionStorage.setItem('nombre',json.nombre);
+                sessionStorage.setItem('apellidos',json.apellidos);
+                window.location.replace("index.html");
+            }else{
+                console.log("nel perro");
+            }
+        };
+
+        nombre = sessionStorage.getItem('nombre');
+        if (sessionStorage.getItem('id')) {
+            document.getElementById('prueba').innerText = nombre;
+        }
+
+      /*    var form = document.querySelector('form');
+         form.addEventListener('submit', submitForm);
+
+        function submitForm(e) {
+            e.preventDefault();
+            const id = document.getElementById('id').value;
+            const nombre = document.getElementById('nombre').value;
+            const apellidos = document.getElementById('apellidos').value;
+            const password = document.getElementById('password').value;
+            const correo = document.getElementById('correo').value;
+            const tipo = document.getElementById('tipo').value;
+            const semestre = document.getElementById('semestre').value;
+
+            const datos = {id, correo,password,nombre,apellidos,tipo,semestre}
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(datos)
+            };
+            fetch('http://localhost:3030/addUser',options).then(res=>{
+                console.log(res);
+            });
+        }
+          */
+     </script>
+
+</body>
+</html>

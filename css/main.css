@@ -14,7 +14,7 @@ body{
 
 .main-section {
     margin: 0 auto;
-    margin-top: 130px;
+    margin-top: 120px;
     padding: 0;
 }
 
@@ -62,4 +62,24 @@ body{
 
 .form-group:last-of-type::before{
     content: "\f084";
+}
+
+button{
+    width: 40%;
+    margin: 5px 0 25px;
+}
+
+.btn{
+    background-color: #27c2a5;
+    color: #fff;
+    font-size: 19px;
+    padding: 7px 14px;
+    border-radius: 5px;
+    border-bottom: 4px solid #53608d;
+}
+.header{
+    font-family: 'Roboto' sans-serif;
+    padding: 20px;
+    color:white;
+    background-color: rgba(33, 90, 175, 0.5);
 }
