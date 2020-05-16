@@ -69,13 +69,13 @@
                 },
                 body: JSON.stringify(data)
             };
-            const response = await fetch("http://localhost/addUser", options);
+            const response = await fetch("http://localhost:3030/addUser", options);
             const json = await response.json();
             console.log(json);
             if(json.msg == "Correcto"){
-                sessionStorage.setItem('id',json.id);
-                sessionStorage.setItem('nombre',json.nombre);
-                sessionStorage.setItem('apellidos',json.apellidos);
+                sessionStorage.setItem('id',data.id);
+                sessionStorage.setItem('nombre',data.nombre);
+                sessionStorage.setItem('apellidos',data.apellidos);
                 window.location.replace("index.html");
             }else{
                 console.log("nel perro");
