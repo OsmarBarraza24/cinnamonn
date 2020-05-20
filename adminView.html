@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+        integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body onload="obtenerDatos()">
+
+    <div class="container-fluid">
+        <header class="row">
+            <div class="col-md-8">
+                <h1>Asesorias y cursos</h1>
+            </div>
+            <div class="col-md-3 align-self-end">
+                <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
+            </div>
+        </header>
+    </div>
+    <div class="container text-center">
+        <div class="row">
+            <div class="col md 12">
+                <h3 style="color:black">Opciones de administrador</h3>
+            </div>
+        </div>
+    </div>
+    <div class="accordion" id="accordionExample">
+        <div class="card">
+            <div class="card-header" id="headingOne">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+                        Dar de alta usuario
+                    </button>
+                </h2>
+            </div>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordionExample">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <form method="POST" class="col-12">
+                                <div class="form-group">
+                                    <label for="">Id del usuario</label>
+                                    <input id="id" type="text" class="form-control" placeholder="Id">
+                                </div>
+                                <label for="">Nombre del usuario</label>
+                                <div class="form-group">
+                                    <input id="nombreA" type="text" class="form-control"
+                                        placeholder="Nombre del usuario">
+                                </div>
+                                <label for="">Apellidos del usuario</label>
+                                <div class="form-group">
+                                    <input id="apellidos" type="text" class="form-control" placeholder="Apellidos">
+                                </div>
+                                <label for="">Contraseña asignada al usuario</label>
+                                <div class="form-group">
+                                    <input id="psw" type="password" class="form-control" placeholder="Contraseña">
+                                </div>
+                                <label for="">Correo del usuario</label>
+                                <div class="form-group">
+                                    <input id="correo" type="text" class="form-control" placeholder="Correo">
+                                </div>
+                                <label for="">Tipo de usuario</label>
+                                <div class="form-group">
+                                    <input id="tipo" type="text" class="form-control" placeholder="Tipo">
+                                </div>
+                                <label for="">Semestre del usuario</label>
+                                <div class="form-group">
+                                    <input id="semestre" type="text" class="form-control" placeholder="Semestre">
+                                </div>
+                                <button id="send-user" class="btn btn-primary" type="submit"> <i
+                                        class="fas fa-sign-in-alt"></i>Dar de alta usuario</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                        Dar de alta materia
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <form method="POST" class="col-12">
+                                    <div class="form-group">
+                                        <label for="" placeholer="Nombre de la materia"></label>
+                                        <input id="materia" type="text" class="form-control"
+                                            placeholder="Nombre de la materia">
+                                    </div>
+                                    <div class="form-group">
+                                        <input id="semestreM" type="text" class="form-control" placeholder="Semestre">
+                                    </div>
+                                    <input type="submit" id="sendMateria" class="btn btn-primary">
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button id="showAll" class="btn btn-link btn-block text-left collapsed" type="button"
+                        data-toggle="collapse" data-target="#collapseThree" aria-expanded="false"
+                        aria-controls="collapseThree">
+                        Dar de alta asesoría
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
+                <div class="card-body">
+                   
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" id="headingThree">
+                    <h2 class="mb-0">
+                        <button id="exit" class="btn btn-link btn-block text-left collapsed" type="button"
+                            data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                            aria-controls="collapseThree">
+                            Cerrar sesión
+                        </button>
+                    </h2>
+                </div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/@popperjs/core@2"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
+
+<script>
+    var nombre = sessionStorage.getItem("nombre");
+    var apellidos = sessionStorage.getItem("apellidos");
+    var semestre = sessionStorage.getItem("semestre");
+    var fullName = nombre.concat(" " + apellidos);
+    if (sessionStorage.getItem('id')) {
+        document.getElementById('nombre').innerText = fullName;
+    }
+    document.getElementById('send-user').onclick = async function (e) {
+        e.preventDefault();
+        const id = document.getElementById("id").value;
+        const apellidos = document.getElementById("apellidos").value;
+        const correo = document.getElementById("correo").value;
+        const password = document.getElementById("psw").value;
+        const tipo = document.getElementById("tipo").value
+        const semestre = document.getElementById("semestre").value;
+        const nombre = document.getElementById("nombreA").value;
+
+        const data = { id, correo, password, nombre, apellidos, tipo, semestre }
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        console.log(options);
+        const response = await fetch("http://localhost:3030/addUser", options);
+        const json = await response.json();
+        console.log(json);
+        if (json.msg == "Correcto") {
+            alert("¡Se ha agregado un usuario exitosamente!");
+            console.log("agregó");
+            window.location.replace("adminView.html");
+        } else {
+            console.log("no sirve");
+            alert("Favor de verificar sus datos");
+        }
+    };
+
+    document.getElementById('sendMateria').onclick = async function (e) {
+        e.preventDefault();
+        const nombre = document.getElementById('materia').value;
+        const semestre = document.getElementById('semestreM').value;
+        const data = { nombre, semestre };
+        console.log(nombre, semestre);
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        console.log(options);
+        const response = await fetch("http://localhost:3030/newClass", options);
+        const json = await response.json();
+        console.log(json);
+        if (json.msg === "Correcto") {
+            console.log("se agregó");
+        } else {
+            console.log("nel perro");
+        }
+    };
+
+    async function obtenerDatos() {
+        const tipo = "ASESOR";
+        const data = { tipo }
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        const response = await fetch("http://localhost:3030/allUsers", options);
+        const json = await response.json();
+        for (i = 0; json.results.length; i++) {
+            document.getElementById('add-here').innerHTML += '<option id="selected">' + json.results[i].nombre + ' ' + json.results[i].apellidos + '<option>';
+        }
+        
+        const options2 = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+        };
+        const response2 = await fetch("http://localhost:3030/allClass", options2);
+        const json2 = await respones2.json();
+        for (i = 0; json2.result.length; i++) {
+            document.getElementById('add-here2').innerHTML += '<option>' + json2.results[i].nombre + '</option>';
+        }
+    }
+
+    document.getElementById('exit').onclick = function exitApp(){
+        sessionStorage.clear();
+        window.location.replace("login.html");
+    }
+
+
+</script>

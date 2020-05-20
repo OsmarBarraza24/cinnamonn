@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
@@ -7,6 +8,7 @@
     <link rel="stylesheet" href="https://unpkg.com/@popperjs/core@2">
     <link rel="stylesheet" href="css/main.css">
 </head>
+
 <body>
     <div class="container-fluid">
         <div class="row">
@@ -17,24 +19,24 @@
             </div>
         </div>
     </div>
- 
     <div class="modal-dialog text-center">
         <div class="col-sm-8 main-section">
             <div class="modal-content">
-
-                    <div class="col-12 user-img">
-                        <img src="img/user.png" alt="">
+                <div class="col-12 user-img">
+                    <img src="img/user.png" alt="">
+                </div>
+                <form method="POST" class="col-12">
+                    <div class="form-group">
+                        <input id="id" type="text" class="form-control" placeholder="Id">
                     </div>
-                    <form method="POST" class="col-12">
-                        <div class="form-group">
-                            <input id="id" type="text" class="form-control" placeholder="Id">
-                        </div>
-                        <div class="form-group">
-                            <input id="password" type="password" class="form-control" placeholder="Contraseña">
-                        </div>
-                        <button id="sent" onclick="jump()" class="btn" type="submit"> <i class="fas fa-sign-in-alt"></i>Login</button>
-                    </form>
-            </div> <!--end-->
+                    <div class="form-group">
+                        <input id="password" type="password" class="form-control" placeholder="Contraseña">
+                    </div>
+                    <button data-toggle="modal" data-target="#errorModal" id="send" class="btn" type="submit"> <i
+                            class="fas fa-sign-in-alt"></i>Login</button>
+                </form>
+            </div>
+            <!--end-->
         </div>
     </div>
 
@@ -42,41 +44,58 @@
     <script src="js/main.js"></script>
     <script src="js/jquery-3.5.0.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
-     <script>
-
-function jump (){
-    document.getElementById('sent');
-    window.location.replace('index.html');
-}
-
-        
-         var form = document.querySelector('form');
-         form.addEventListener('submit', submitForm);
-
-        function submitForm(e) {
-            e.preventDefault();
+    <script>
+        var user = {
+            id: "",
+            password: ""
+        };
+        document.getElementById('send').onclick = async function (e) {
+            e.preventDefault()
             const id = document.getElementById('id').value;
-            const nombre = document.getElementById('nombre').value;
-            const apellidos = document.getElementById('apellidos').value;
             const password = document.getElementById('password').value;
-            const correo = document.getElementById('correo').value;
-            const tipo = document.getElementById('tipo').value;
-            const semestre = document.getElementById('semestre').value;
-
-            const datos = {id, correo,password,nombre,apellidos,tipo,semestre}
+            const data = { id, password }
             const options = {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify(datos)
+                body: JSON.stringify(data)
             };
-            fetch('http://localhost:3030/addUser',options).then(response =>{
-                console.log(response);
-            });
+            const response = await fetch("http://localhost:3030/signIn", options);
+            const json = await response.json();
+            console.log(json);
+            if(json.msg = "Datos incorrectos"){
+                alert("Favor de verificar sus datos");
+            }
+            if (json.msg = "Correcto") {
+                user = json.results[0];
+                for(i = 0; i < json.results.length; i++){
+                    sessionStorage.setItem("todos",JSON.stringify(json.results[i]));
+                }
+                sessionStorage.setItem("id",user.id);
+                sessionStorage.setItem("nombre", user.nombre);
+                sessionStorage.setItem("apellidos", user.apellidos);
+                sessionStorage.setItem("semestre", user.semestre);
+                sessionStorage.setItem("tipo", user.tipo);
+               
+                switch (user.tipo) {
+                    case "ADMINISTRADOR":
+                        window.location.replace("adminView.html");
+                        break;
+                    case "ALUMNO":
+                        window.location.replace("index.html");
+                        break;
+                    case "ASESOR":
+                        window.location.replace("index.html");
+                        break;
+
+                }
+            }
         }
-         
-     </script>
+
+
+    </script>
 
 </body>
+
 </html>

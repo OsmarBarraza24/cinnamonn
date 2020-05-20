@@ -83,3 +83,14 @@ button{
     color:white;
     background-color: rgba(33, 90, 175, 0.5);
 }
+
+.hidden{
+    visibility: hidden;
+    display:none
+}
+
+.show{
+    color:red;
+    visibility: visible;
+    display:block
+}

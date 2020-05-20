@@ -1,14 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
-<body>
-        <h1></h1>
+
+<body onload="obtenerDatos()">
+    <form method="POST">
+        <div class="form-group">
+            <label>Example select</label>
+            <select class="form-control">
+               
+            </select>
 </body>
 <script>
-   
+
+    async function obtenerDatos() {
+        const tipo = "ALUMNO";
+        const data = { tipo }
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        const response = await fetch("http://localhost:3030/allUsers", options);
+        const json = await response.json();
+        for (i = 0; json.results.length; i++) {
+            document.getElementById('add-here').innerHTML += '<option>' + json.results[i].nombre + '<option>';
+        }
+
+    }
 </script>
+
 </html>

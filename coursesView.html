@@ -8,82 +8,55 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
-        <header class="row">
-            <div class="col">
-                <h1>Asesorías y cursos</h1>
-            </div>
-        </header>
-        <div class="row">
-            <div class="col">
+  <div class="container-fluid">
+    <header class="row">
+        <div class="col-md-8">
+            <h1>Asesorias y cursos</h1>
+        </div>
+        <div class="col-md-3 align-self-end">
+            <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
+        </div>
+    </header>
+        <div class="container">
+          <div class="row">
+            <div class="col-md-9">
                 <h2 style="color:black">Asesorías disponibles</h2>
-                <hr>
+                
+            </div>
+            <div class="col-md-2">
+              <button onclick ="back()" class="btn btn-secondary">Volver</button>
             </div>
         </div>
+        <hr>
         <div class="row justify-content-around">
-            <div class="col-md-5">
+            <div class="col-md-8">
                 <div data-toggle="modal" data-target="#exampleModal" class="list-group">
                     <a href="#" class="list-group-item list-group-item-action">
                       <div class="d-flex w-100 justify-content-between">
                         <h5 class="mb-1">Programación 1</h5>
                       </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                      <p class="mb-1">Curso disponible impartido por el profesor:</p>
                       <small>Alonso Gómez Ávila</small>
                       <button class="d-flex btn btn-primary">Inscribirse</button>
-                    </a>
-                    
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                      <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                      <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                  </div>
-            </div>
-            <div class="col-md-5">
-                <div data-toggle="modal" data-target="#exampleModal" class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Programación 1</h5>
-                      </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                      <small>Alonso Gómez Ávila</small>
-                      <button class="d-flex btn btn-primary">Inscribirse</button>
-                    </a>
-                    
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                      <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">List group item heading</h5>
-                        <small class="text-muted">3 days ago</small>
-                      </div>
-                      <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                      <small class="text-muted">Donec id elit non mi porta.</small>
-                    </a>
-                  </div>
-            </div>
+                    </a>  
         </div>
     </div>
+        </div>
+       
 
 </body>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
 <script src="js/jquery-3.5.0.min.js"></script>
+<script>
+    var apellidos = sessionStorage.getItem("apellidos");
+    var nombre = sessionStorage.getItem("nombre");
+    var fullName = nombre.concat(" " + apellidos);
+
+    if (sessionStorage.getItem('id')) {
+        document.getElementById('nombre').innerText = fullName;
+    }
+
+
+</script>
 </html>

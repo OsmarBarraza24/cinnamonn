@@ -9,16 +9,16 @@
     <link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body onload="obtenerDatos()">
     <div class="container-fluid">
         <header class="row">
-            <div class="col-md-10">
+            <div class="col-md-8">
                 <h1>Asesorias y cursos</h1>
             </div>
-            <div class="col-md-2 align-self-end">
-                <p>Bienvenido, Osmar Barraza</p>
+            <div class="col-md-3 align-self-end">
+                <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
             </div>
-        </header>     
+        </header>
     </div>
     <div class="container">
         <div class="row container-main">
@@ -30,35 +30,19 @@
         <div class="row">
             <table class="table">
                 <thead class="thead-dark">
-                  <tr>
-                    <th scope="col">#</th>
-                    <th scope="col">Clase</th>
-                    <th scope="col">Asesor</th>
-                    <th scope="col">Semestre</th>
-                    <th scope="col">Aula</th>
-                    <th scope="col">Fecha</th>
-                  </tr>
+                    <tr>
+                        <th scope="col">Clase</th>
+                        <th scope="col">Asesor</th>
+                        <th scope="col">Semestre</th>
+                        <th scope="col">Aula</th>
+                        <th scope="col">Fecha</th>
+                    </tr>
                 </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">1</th>
-                    <td>Programación 3</td>
-                    <td>Jesus Adolfo Castro Alvarez</td>
-                    <td>8</td>
-                    <td>CITEV 922</td>
-                    <td>6/06/66</td>
-                  </tr>
-                  <tr>
-                    <th scope="row">2</th>
-                    <td>Base de datos avanzada</td>
-                    <td>Mario Alan Merel Tamayo</td>
-                    <td>8</td>
-                    <td>922 CITEV</td>
-                    <td>6/06/66</td>
-                  </tr>
+                <tbody id="add-here">
+
                 </tbody>
-              </table>
-        </div>  
+            </table>
+        </div>
         <div class="row justify-content-around">
             <div onclick="goToAsesorias()" id="asesoria" class="col-md-3 widget text-center">
                 <h3>Asesorias disponibles</h3>
@@ -66,34 +50,66 @@
                 <p>Mira las asesorías disponibles en nuestra base de datos, y entra a la que te interese participar.</p>
             </div>
             <div onclick="goToAsesor()" id="asesor" class="col-md-3 widget text-center">
-                <h3 >¿Quieres ser asesor?</h3>
+                <h3>¿Quieres ser asesor?</h3>
                 <i class="text-center fas fa-chalkboard-teacher fa-6x"></i>
                 <p>Si quieres ser asesor de alguna materia, da click aquí y rellena el formulario que se solicita.</p>
             </div>
         </div>
     </div>
 </body>
-
+<script src="js/main.js"></script>
 <script src="https://kit.fontawesome.com/90dc9c86e3.js" crossorigin="anonymous"></script>
-<script src="js/bootstrap.min.js"></script>
 <script src="js/jquery-3.5.0.min.js"></script>
+<script src="js/bootstrap.min.js"></script>
+
 <script>
-
-
-
-    
-    function goToAsesorias(){
-        document.getElementById('asesoria');
-        window.location.replace('coursesView.html');    
+    console.log(sessionStorage.getItem("user"));
+    const id = sessionStorage.getItem("id");
+    var asesorias = [{
+        id: "",
+        asesor: "",
+        apellidosAsesor: "",
+        materia: "",
+        fecha: ""
+    }];
+    var nombre = sessionStorage.getItem("nombre");
+    var apellidos = sessionStorage.getItem("apellidos");
+    var semestre = sessionStorage.getItem("semestre");
+    var fullName = nombre.concat(" " + apellidos);
+    if (sessionStorage.getItem('id')) {
+        document.getElementById('nombre').innerText = fullName;
     }
-    
-    function goToAsesor(){
-        document.getElementById('asesor');
-        window.location.replace('formAsesor.html');
+
+    const data = { id };
+
+    async function obtenerDatos() {
+        const options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        }
+        let response2 = await fetch('http://localhost:3030/advisoryAlumno', options);
+        let json2 = await response2.json();
+        if (json2.tipo === 'error') {
+            console.log(json2.tipo, json2.msg);
+        } else {
+            var asesorias = json2.results[0];
+            console.log(asesorias.asesor, asesorias.materia);
+            for (i = 0; i < json2.results.length; i++) {
+                document.getElementById("add-here").innerHTML += [' <tr>' +
+                    +"" + '<td scope ="row">' + json2.results[i].materia + '</td>'
+                    + "" + '<td id="nombreA">' + json2.results[i].asesor + '</td>'
+                    + "" + '<td id="semestre">' + semestre + '</td>'
+                    + "" + '<td>922 CITEV</td>'
+                    + "" + '<td id="fecha">' + json2.results[i].fecha + '</tr>']
+            }
+        }
+
     }
-
-
 
 
 </script>
+
 </html>
