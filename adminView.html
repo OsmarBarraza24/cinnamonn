@@ -134,7 +134,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Asesores disponibles:</label>
-                                    <select  onchange="selectedValue()" class="form-control" id="add-here4">
+                                    <select  onchange="selectedValueAsesorParaAsesoria()" class="form-control" id="add-here4">
 
                                     </select>
                                 </div><br>
@@ -144,7 +144,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Materia a asignar:</label>
-                                    <select  onchange="selectedValue()" class="form-control" id="add-here5">
+                                    <select  onchange="selectedValueMateriaParaAsesoria()" class="form-control" id="add-here5">
 
                                     </select>
                                 </div><br>
@@ -294,7 +294,7 @@
 
     document.getElementById('calabaza').onclick = async function(){
         document.getElementById('showAll').id = "adios";
-        const tipo = "ASESOR";
+        const tipo = "administrador";
         const data = { tipo };
         var options = {
             method: 'POST',
@@ -309,20 +309,7 @@
             document.getElementById('add-here4').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre +' ' + json.results[i].apellidos +'</option>';
         }
 
-        var options2 = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ todo: 'todo' })
-        };
-        var response2 = await fetch("http://localhost:3030/allClass", options2);
-        console.log(response2);
-        var json2 = await response2.json();
-        console.log(json2);
-        for (i = 0; json2.results.length; i++) {
-            document.getElementById('add-here5').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre +'</option>'
-        }
+        
     }
 
     document.getElementById('sendMateria').onclick = async function (e) {
@@ -440,8 +427,23 @@
 function selectedData(){
     const selected = document.getElementById('add-here4').value;
     const selected2 = document.getElementById('add-here5').value;
+}
 
-
+async function selectedValueAsesorParaAsesoria(){
+    var options2 = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ todo: 'todo' })
+        };
+        var response2 = await fetch("http://localhost:3030/allClass", options2);
+        console.log(response2);
+        var json2 = await response2.json();
+        console.log(json2);
+        for (i = 0; json2.results.length; i++) {
+            document.getElementById('add-here5').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre +'</option>'
+        }
 }
 
 </script>

@@ -121,8 +121,23 @@
         }
     }
 
-    function dateSelect() {
+    async function dateSelect() {
         const date = document.getElementById('datee').value;
+        const data = { fecha: date };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response = await fetch("http://localhost:3030/validacionAd", options);
+        var json = await response.json();
+        if (json.results) {
+            alert("Fecha disponible");
+        }else{
+            alert("Fecha no disponible");
+        }
         console.log(date);
     }
 </script>
