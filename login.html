@@ -57,16 +57,14 @@
             const options = {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    
                 },
                 body: JSON.stringify(data)
             };
             const response = await fetch("http://localhost:3030/signIn", options);
             const json = await response.json();
             console.log(json);
-            if(json.msg = "Datos incorrectos"){
-                alert("Favor de verificar sus datos");
-            }
             if (json.msg = "Correcto") {
                 user = json.results[0];
                 for(i = 0; i < json.results.length; i++){
@@ -90,6 +88,8 @@
                         break;
 
                 }
+            }else{
+                alert("Datos incorrectos. Favor de verificarlos");
             }
         }
 

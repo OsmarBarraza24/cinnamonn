@@ -10,7 +10,7 @@
     <title>Document</title>
 </head>
 
-<body onload="obtenerDatos()">
+<body>
 
     <div class="container-fluid">
         <header class="row">
@@ -126,14 +126,16 @@
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
-                   
+                    <select id="add-here">
+
+                    </select>
                     </div>
                 </div>
             </div>
             <div class="card">
                 <div class="card-header" id="headingThree">
                     <h2 class="mb-0">
-                        <button id="exit" class="btn btn-link btn-block text-left collapsed" type="button"
+                        <button onclick="quitApp()" class="btn btn-link btn-block text-left collapsed" type="button"
                             data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
                             aria-controls="collapseThree">
                             Cerrar sesión
@@ -142,6 +144,7 @@
                 </div>
         </div>
     </div>
+    <script src="js/main.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2"></script>
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
         integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -217,7 +220,7 @@
         }
     };
 
-    async function obtenerDatos() {
+    window.onload = async function obtenerDatos() {
         const tipo = "ASESOR";
         const data = { tipo }
         const options = {
@@ -230,7 +233,9 @@
         const response = await fetch("http://localhost:3030/allUsers", options);
         const json = await response.json();
         for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here').innerHTML += '<option id="selected">' + json.results[i].nombre + ' ' + json.results[i].apellidos + '<option>';
+             id = json.results[i];
+            document.getElementById('add-here').innerHTML += '<option value= '+json.results[i].id+'>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '<option>';
+            document.getElementById
         }
         
         const options2 = {
@@ -242,14 +247,15 @@
         const response2 = await fetch("http://localhost:3030/allClass", options2);
         const json2 = await respones2.json();
         for (i = 0; json2.result.length; i++) {
-            document.getElementById('add-here2').innerHTML += '<option>' + json2.results[i].nombre + '</option>';
+            document.getElementById('add-here2').innerHTML += '<option >' + json2.results[i].nombre + '</option>';
         }
     }
 
-    document.getElementById('exit').onclick = function exitApp(){
-        sessionStorage.clear();
-        window.location.replace("login.html");
-    }
+    function getSelectedItem (){
+        var  selected = document.getElementById('add-here').value;
+        console.log(selected);
+       }
+
 
 
 </script>

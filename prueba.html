@@ -11,14 +11,14 @@
     <form method="POST">
         <div class="form-group">
             <label>Example select</label>
-            <select class="form-control">
-               
+            <select onchange="selectedValue()" class="form-control" id="add-here">
+                
             </select>
 </body>
 <script>
 
     async function obtenerDatos() {
-        const tipo = "ALUMNO";
+        const tipo = "ASESOR";
         const data = { tipo }
         const options = {
             method: 'POST',
@@ -30,9 +30,15 @@
         const response = await fetch("http://localhost:3030/allUsers", options);
         const json = await response.json();
         for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here').innerHTML += '<option>' + json.results[i].nombre + '<option>';
+            document.getElementById('add-here').innerHTML += '<option value= '+ json.results[i].id + '>' + json.results[i].nombre + ' '+ json.results[i].nombre + '<option>';
         }
+        
+    }
 
+
+    function selectedValue(){
+        var selected = document.getElementById('add-here').value;
+        console.log(selected);
     }
 </script>
 

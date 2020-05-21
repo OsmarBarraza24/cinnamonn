@@ -23,3 +23,8 @@ function goToAsesor(){
     document.getElementById('asesor');
     window.location.replace('formAsesor.html');
 }
+
+function quitApp(){
+        sessionStorage.clear();
+        window.location.replace("login.html");
+}
