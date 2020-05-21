@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,42 +8,62 @@
     <link rel="stylesheet" href="css/style.css">
     <title>Document</title>
 </head>
+
 <body>
-  <div class="container-fluid">
-    <header class="row">
-        <div class="col-md-8">
-            <h1>Asesorias y cursos</h1>
-        </div>
-        <div class="col-md-3 align-self-end">
-            <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
-        </div>
-    </header>
-        <div class="container">
-          <div class="row">
-            <div class="col-md-9">
-                <h2 style="color:black">Asesorías disponibles</h2>
-                
-            </div>
-            <div class="col-md-2">
-              <button onclick ="back()" class="btn btn-secondary">Volver</button>
-            </div>
-        </div>
-        <hr>
-        <div class="row justify-content-around">
+    <div class="container-fluid">
+        <header class="row">
             <div class="col-md-8">
-                <div data-toggle="modal" data-target="#exampleModal" class="list-group">
-                    <a href="#" class="list-group-item list-group-item-action">
-                      <div class="d-flex w-100 justify-content-between">
-                        <h5 class="mb-1">Programación 1</h5>
-                      </div>
-                      <p class="mb-1">Curso disponible impartido por el profesor:</p>
-                      <small>Alonso Gómez Ávila</small>
-                      <button class="d-flex btn btn-primary">Inscribirse</button>
-                    </a>  
+                <h1>Asesorias y cursos</h1>
+            </div>
+            <div class="col-md-3 align-self-end">
+                <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
+            </div>
+        </header>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-9">
+                    <h2 style="color:black">Asesorías disponibles</h2>
+
+                </div>
+                <div class="col-md-2">
+                    <button onclick="back()" class="btn btn-secondary">Volver</button>
+                </div>
+            </div>
+            <hr>
+
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Materia :</label>
+                            <select onchange="dataSelected()" class="form-control" id="add-here">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="exampleFormControlSelect1">Asesor :</label>
+                            <select class="form-control" id="add-here2">
+
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="row justify-content-center">
+                    <div class="col-md-8">
+                        <label for="exampleFormControlSelect1">Fecha :</label>
+                        <input onchange="dateSelect()" class="form-control" type="date" id="datee" name="trip-start"
+                            value="22/07/2020" min="2020-05-19" max="2020-12-31">
+                    </div>
+                </div>
+            </div>
+
         </div>
-    </div>
-        </div>
-       
+
+
 
 </body>
 <script src="js/bootstrap.min.js"></script>
@@ -52,11 +73,58 @@
     var apellidos = sessionStorage.getItem("apellidos");
     var nombre = sessionStorage.getItem("nombre");
     var fullName = nombre.concat(" " + apellidos);
+    const date = document.getElementById('datee');
+    console.log(date);
 
     if (sessionStorage.getItem('id')) {
         document.getElementById('nombre').innerText = fullName;
     }
 
+    window.onpageshow = async function () {
+        const semestre = sessionStorage.getItem("semestre");
+        const data = { semestre };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response2 = await fetch("http://localhost:3030/classSem", options);
+        console.log(response2);
+        var json2 = await response2.json();
+        console.log(json2);
 
+        for (i = 0; json2.results.length; i++) {
+            document.getElementById('add-here').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre + '</option>'
+        }
+    }
+
+
+    async function dataSelected() {
+        const materia = document.getElementById('add-here').value;
+        console.log(materia);
+        const data = { id: materia };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response = await fetch("http://localhost:3030/advisorClass", options);
+        console.log(response);
+        var json = await response.json();
+        console.log(json);
+        for (i = 0; i < json.results.length; i++) {
+            document.getElementById('add-here2').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].asesor + ' ' + json.results[i].apellidosAsesor + '</option>';
+        }
+    }
+
+    function dateSelect() {
+        const date = document.getElementById('datee').value;
+        console.log(date);
+    }
 </script>
+
 </html>

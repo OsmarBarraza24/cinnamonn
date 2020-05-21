@@ -68,7 +68,11 @@
                                 </div>
                                 <label for="">Tipo de usuario</label>
                                 <div class="form-group">
-                                    <input id="tipo" type="text" class="form-control" placeholder="Tipo">
+                                    <select onchange="selectedValue()" class="form-control" id="getTipo">
+                                        <option value="ASESOR">ASESOR</option>
+                                        <option value="ALUMNO">ALUMNO</option>
+                                        <option value="ADMINISTRADOR">ADMINISTRADOR</option>
+                                    </select>
                                 </div>
                                 <label for="">Semestre del usuario</label>
                                 <div class="form-group">
@@ -115,6 +119,42 @@
             </div>
         </div>
         <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button id="calabaza" class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
+                        data-target="#collapseFive" aria-expanded="false" aria-controls="collapseTwo">
+                        Asignar asesor a materia
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseFive" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Asesores disponibles:</label>
+                                    <select  onchange="selectedValue()" class="form-control" id="add-here4">
+
+                                    </select>
+                                </div><br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Materia a asignar:</label>
+                                    <select  onchange="selectedValue()" class="form-control" id="add-here5">
+
+                                    </select>
+                                </div><br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
             <div class="card-header" id="headingThree">
                 <h2 class="mb-0">
                     <button id="showAll" class="btn btn-link btn-block text-left collapsed" type="button"
@@ -126,27 +166,78 @@
             </div>
             <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
                 <div class="card-body">
-                    <select id="add-here">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Alumnos</label>
+                                    <select onchange="selectedValue()" class="form-control" id="add-here">
 
-                    </select>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="card-body">
-                        <select id="add-here2">
-    
-                        </select>
-                        </div>  
+
                 </div>
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Materias para asesoría</label>
+                                <select onchange="selectedValue()" class="form-control" id="add-here5">
+
+                                </select>
+                            </div><br>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Materias para asesoría</label>
+                                    <select onchange="selectedValue()" class="form-control" id="add-here2">
+
+                                    </select>
+                                </div><br>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- <input style="margin-top:10px" type="submit" id="sendMateria" class="btn btn-primary"> -->
+                </div>
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Asesores disponibles</label>
+                                    <select  onchange="selectedValue()" class="form-control" id="add-here3">
+
+                                    </select>
+                                </div><br>
+                            </div>
+                        </div>
+                    </div>
+                    <input style="margin-top:10px" type="submit" id="senAdvisory" class="btn btn-primary">
+                    
+                </div>
+                
             </div>
-            <div class="card">
-                <div class="card-header" id="headingThree">
-                    <h2 class="mb-0">
-                        <button onclick="quitApp()" class="btn btn-link btn-block text-left collapsed" type="button"
-                            data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
-                            aria-controls="collapseThree">
-                            Cerrar sesión
-                        </button>
-                    </h2>
-                </div>
+
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingThree">
+                <h2 class="mb-0">
+                    <button onclick="quitApp()" class="btn btn-link btn-block text-left collapsed" type="button"
+                        data-toggle="collapse" data-target="#collapseFour" aria-expanded="false"
+                        aria-controls="collapseThree">
+                        Cerrar sesión
+                    </button>
+                </h2>
+            </div>
         </div>
     </div>
     <script src="js/main.js"></script>
@@ -175,7 +266,7 @@
         const apellidos = document.getElementById("apellidos").value;
         const correo = document.getElementById("correo").value;
         const password = document.getElementById("psw").value;
-        const tipo = document.getElementById("tipo").value
+        const tipo = document.getElementById("getTipo").value;
         const semestre = document.getElementById("semestre").value;
         const nombre = document.getElementById("nombreA").value;
 
@@ -200,6 +291,39 @@
             alert("Favor de verificar sus datos");
         }
     };
+
+    document.getElementById('calabaza').onclick = async function(){
+        document.getElementById('showAll').id = "adios";
+        const tipo = "ASESOR";
+        const data = { tipo };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response = await fetch("http://localhost:3030/allUsers", options);
+        var json = await response.json();
+        for (i = 0; json.results.length; i++) {
+            document.getElementById('add-here4').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre +' ' + json.results[i].apellidos +'</option>';
+        }
+
+        var options2 = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ todo: 'todo' })
+        };
+        var response2 = await fetch("http://localhost:3030/allClass", options2);
+        console.log(response2);
+        var json2 = await response2.json();
+        console.log(json2);
+        for (i = 0; json2.results.length; i++) {
+            document.getElementById('add-here5').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre +'</option>'
+        }
+    }
 
     document.getElementById('sendMateria').onclick = async function (e) {
         e.preventDefault();
@@ -226,30 +350,98 @@
     };
 
     window.onload = async function obtenerDatos() {
-        const tipo = "ASESOR";
-        const data = { tipo }
-        const options = {
+        var tipo = "ALUMNO";
+        var data = { tipo };
+        var options = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(data)
         };
-        const response = await fetch("http://192.168.0.2:3030/allUsers", options);
-        const json = await response.json();
+        var response = await fetch("http://localhost:3030/allUsers", options);
+        var json = await response.json();
         for (i = 0; json.results.length; i++) {
-             id = json.results[i];
-            document.getElementById('add-here').innerHTML += '<option value= '+json.results[i].id+'>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '<option>';
-            document.getElementById
+            document.getElementById('add-here').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre +' ' + json.results[i].apellidos +'</option>';
         }
-        
-     
 
-    function getSelectedItem (){
-        var  selected = document.getElementById('add-here2').value;
+
+    }
+
+    window.onpageshow = async function () {
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ todo: 'todo' })
+        };
+        var response2 = await fetch("http://localhost:3030/allClass", options);
+        console.log(response2);
+        var json2 = await response2.json();
+        console.log(json2);
+
+        for (i = 0; json2.results.length; i++) {
+            document.getElementById('add-here2').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre +'</option>'
+        }
+    }
+
+   document.getElementById('showAll').onclick =  async function () {
+      document.getElementById('showAll').id = "adios";
+        var tipo = "ASESOR";
+        var data = { tipo };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response = await fetch("http://localhost:3030/allUsers", options);
+        var json = await response.json();
+        for (i = 0; json.results.length; i++) {
+            document.getElementById('add-here3').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos +'</option>';
+        }
+
+    }
+
+
+    function selectedValue() {
+        var selected = document.getElementById('add-here').value;
+        var selected2 = document.getElementById('add-here2').value;
+        var selected3 = document.getElementById('add-here3').value;
         console.log(selected);
-       }
+        console.log(selected2);
+        
+        document.getElementById('senAdvisory').onclick = async function () {
+            const idAlumno = selected;
+            const idMateria = selected2;
+            const idAsesor = selected3;
+            const fecha = "24/07/2022 10:30";
+            
+            const data = {idAlumno,idAsesor,idMateria,fecha};
+            var options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            };
+            var response2 = await fetch("http://localhost:3030/newAdvisory", options);
+            console.log(response2);
+            var json2 = await response2.json();
+            console.log(json2);
+            if(json2.msg === "Correcto"){
+                alert("Se agregó");
+            }
+        };
+    }
+
+function selectedData(){
+    const selected = document.getElementById('add-here4').value;
+    const selected2 = document.getElementById('add-here5').value;
 
 
+}
 
 </script>
