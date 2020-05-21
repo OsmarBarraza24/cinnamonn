@@ -76,7 +76,7 @@
                                 </div>
                                 <label for="">Semestre del usuario</label>
                                 <div class="form-group">
-                                    <input id="semestre" type="text" class="form-control" placeholder="Semestre">
+                                    <input id="semestre" type="number" class="form-control" placeholder="Semestre">
                                 </div>
                                 <button id="send-user" class="btn btn-primary" type="submit"> <i
                                         class="fas fa-sign-in-alt"></i>Dar de alta usuario</button>
@@ -102,12 +102,12 @@
                             <div class="col-md-8">
                                 <form method="POST" class="col-12">
                                     <div class="form-group">
-                                        <label for="" placeholer="Nombre de la materia"></label>
-                                        <input id="materia" type="text" class="form-control"
-                                            placeholder="Nombre de la materia">
+                                        <label for="" placeholer="Nombre de la materia">Nombre de la materia:</label>
+                                        <input id="materia" type="number" class="form-control" placeholder="Materia">
                                     </div>
                                     <div class="form-group">
-                                        <input id="semestreM" type="text" class="form-control" placeholder="Semestre">
+                                        <label for="">Semestre de la materia:</label>
+                                        <input id="semestreM" type="number" class="form-control" placeholder="Semestre">
                                     </div>
                                     <input type="submit" id="sendMateria" class="btn btn-primary">
                                 </form>
@@ -353,9 +353,10 @@
         const json = await response.json();
         console.log(json);
         if (json.msg === "Correcto") {
+            alert("Se ha agregado una nueva materia");
             console.log("se agregó");
         } else {
-            console.log("nel perro");
+            alert("Favor de verificar sus datos");
         }
     };
 
@@ -469,7 +470,8 @@
         }
     }
 
-    document.getElementById('asignar').onclick = async function () {
+    document.getElementById('asignar').onclick = async function (e) {
+        e.preventDefault();
         const element1 = document.getElementById('add-here4').value;
         const element2 = document.getElementById('add-here5').value;
 
@@ -488,8 +490,10 @@
         console.log(response2);
         var json2 = await response2.json();
         console.log(json2);
-        if (json2.msg === "Correcto") {
-            alert("Se agregó");
+        if (json2.tipo === "correcto") {
+            alert("Se asignó el profesor a la materia");
+        }else{
+
         }
     }
 
