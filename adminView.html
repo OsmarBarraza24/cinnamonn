@@ -130,6 +130,11 @@
 
                     </select>
                     </div>
+                    <div class="card-body">
+                        <select id="add-here2">
+    
+                        </select>
+                        </div>  
                 </div>
             </div>
             <div class="card">
@@ -230,7 +235,7 @@
             },
             body: JSON.stringify(data)
         };
-        const response = await fetch("http://localhost:3030/allUsers", options);
+        const response = await fetch("http://192.168.0.2:3030/allUsers", options);
         const json = await response.json();
         for (i = 0; json.results.length; i++) {
              id = json.results[i];
@@ -238,21 +243,10 @@
             document.getElementById
         }
         
-        const options2 = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-        };
-        const response2 = await fetch("http://localhost:3030/allClass", options2);
-        const json2 = await respones2.json();
-        for (i = 0; json2.result.length; i++) {
-            document.getElementById('add-here2').innerHTML += '<option >' + json2.results[i].nombre + '</option>';
-        }
-    }
+     
 
     function getSelectedItem (){
-        var  selected = document.getElementById('add-here').value;
+        var  selected = document.getElementById('add-here2').value;
         console.log(selected);
        }
 

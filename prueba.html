@@ -12,14 +12,18 @@
         <div class="form-group">
             <label>Example select</label>
             <select onchange="selectedValue()" class="form-control" id="add-here">
-                
+
+            </select>
+            <select onchange="selectedValue()" class="form-control" id="add-here2">
+
             </select>
 </body>
 <script>
 
     async function obtenerDatos() {
         const tipo = "ASESOR";
-        const data = { tipo }
+
+        const data = { tipo };
         const options = {
             method: 'POST',
             headers: {
@@ -30,13 +34,29 @@
         const response = await fetch("http://localhost:3030/allUsers", options);
         const json = await response.json();
         for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here').innerHTML += '<option value= '+ json.results[i].id + '>' + json.results[i].nombre + ' '+ json.results[i].nombre + '<option>';
+            document.getElementById('add-here').innerHTML += '<option value= ' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].nombre + '<option>';
         }
-        
+
+        const options2 = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            }, 
+            body: JSON.stringify(data)
+        };
+     
+        const response2 = await fetch("http://localhost:3030/allClass", options2);
+        console.log(response2);
+        const json2 = await response2.json();
+        console.log(json2);
+
+        for (i = 0; json2.results.length; i++) {
+            document.getElementById('add-here2').innerHTML += '<option>' + json2.results[i].nombre + '</option>';
+        }
     }
+    
 
-
-    function selectedValue(){
+    function selectedValue() {
         var selected = document.getElementById('add-here').value;
         console.log(selected);
     }
