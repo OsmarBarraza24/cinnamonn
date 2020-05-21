@@ -121,8 +121,9 @@
         <div class="card">
             <div class="card-header" id="headingTwo">
                 <h2 class="mb-0">
-                    <button id="calabaza" class="btn btn-link btn-block text-left collapsed" type="button" data-toggle="collapse"
-                        data-target="#collapseFive" aria-expanded="false" aria-controls="collapseTwo">
+                    <button id="calabaza" class="btn btn-link btn-block text-left collapsed" type="button"
+                        data-toggle="collapse" data-target="#collapseFive" aria-expanded="false"
+                        aria-controls="collapseTwo">
                         Asignar asesor a materia
                     </button>
                 </h2>
@@ -133,10 +134,12 @@
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Asesores disponibles:</label>
-                                    <select  onchange="selectedValueAsesorParaAsesoria()" class="form-control" id="add-here4">
+                                    <form action="" method="POST">
+                                        <label for="exampleFormControlSelect1">Asesores disponibles:</label>
+                                        <select onchange="selectedValueAsesorParaAsesoria()" class="form-control"
+                                            id="add-here4">
 
-                                    </select>
+                                        </select>
                                 </div><br>
                             </div>
                         </div>
@@ -144,10 +147,13 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Materia a asignar:</label>
-                                    <select  onchange="selectedValueMateriaParaAsesoria()" class="form-control" id="add-here5">
+                                    <select onchange="selectedValueMateriaParaAsesoria()" class="form-control"
+                                        id="add-here5">
 
                                     </select>
                                 </div><br>
+                                <button class="btn btn-primary" type="submit" id="asignar">Asignar materia</button>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -172,49 +178,78 @@
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Alumnos</label>
                                     <select onchange="selectedValue()" class="form-control" id="add-here">
-
                                     </select>
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                </div>
-                <div class="card-body">
-                    <div class="container">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Materias para asesoría</label>
                                     <select onchange="selectedValue()" class="form-control" id="add-here2">
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <div class="form-group">
+                                    <label for="exampleFormControlSelect1">Asesores disponibles</label>
+                                    <select onchange="selectedValue()" class="form-control" id="add-here3">
 
                                     </select>
-                                </div><br>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-8">
+                                <label for="exampleFormControlSelect1">Fecha</label>
+                                <input onchange="dateSelect()" class="form-control" type="date" id="fe" name="trip-start"
+                                value="22/07/2020" min="2020-05-19" max="2020-12-31">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-4">
+                                <input style="margin-top:10px" type="submit" id="senAdvisory" class="btn btn-primary">
                             </div>
                         </div>
                     </div>
-
-                    <!-- <input style="margin-top:10px" type="submit" id="sendMateria" class="btn btn-primary"> -->
+                    
+                   
                 </div>
+
+            </div>
+
+        </div>
+        <div class="card">
+            <div class="card-header" id="headingTwo">
+                <h2 class="mb-0">
+                    <button  class="btn btn-link btn-block text-left collapsed" type="button"
+                        data-toggle="collapse" data-target="#collapseSix" aria-expanded="false"
+                        aria-controls="collapseTwo" id="report">
+                        Ver reporte de asesorias
+                    </button>
+                </h2>
+            </div>
+            <div id="collapseSix" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
                 <div class="card-body">
                     <div class="container">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group">
-                                    <label for="exampleFormControlSelect1">Asesores disponibles</label>
-                                    <select  onchange="selectedValue()" class="form-control" id="add-here3">
-
+                                    <label for="exampleFormControlSelect1">Nombre del asesor</label>
+                                    <select class="form-control" id="add-here6">
                                     </select>
                                 </div><br>
                             </div>
                         </div>
+                        <div class="row">
+                           <div class="col-md-4"></div>
+                            <button class="btn btn-primary" id="reporte">Solicitar reporte</button>
+                        </div>
                     </div>
-                    <input style="margin-top:10px" type="submit" id="senAdvisory" class="btn btn-primary">
-                    
                 </div>
-                
             </div>
-
         </div>
         <div class="card">
             <div class="card-header" id="headingThree">
@@ -280,9 +315,9 @@
         }
     };
 
-    document.getElementById('calabaza').onclick = async function(){
+    document.getElementById('calabaza').onclick = async function () {
         document.getElementById('showAll').id = "adios";
-        const tipo = "administrador";
+        const tipo = "asesor";
         const data = { tipo };
         var options = {
             method: 'POST',
@@ -294,10 +329,10 @@
         var response = await fetch("http://localhost:3030/allUsers", options);
         var json = await response.json();
         for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here4').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre +' ' + json.results[i].apellidos +'</option>';
+            document.getElementById('add-here4').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '</option>';
         }
 
-        
+
     }
 
     document.getElementById('sendMateria').onclick = async function (e) {
@@ -337,7 +372,7 @@
         var response = await fetch("http://localhost:3030/allUsers", options);
         var json = await response.json();
         for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre +' ' + json.results[i].apellidos +'</option>';
+            document.getElementById('add-here').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '</option>';
         }
 
 
@@ -357,12 +392,12 @@
         console.log(json2);
 
         for (i = 0; json2.results.length; i++) {
-            document.getElementById('add-here2').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre +'</option>'
+            document.getElementById('add-here2').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre + '</option>'
         }
     }
 
-   document.getElementById('showAll').onclick =  async function () {
-      document.getElementById('showAll').id = "adios";
+    document.getElementById('showAll').onclick = async function () {
+        document.getElementById('showAll').id = "adios";
         var tipo = "ASESOR";
         var data = { tipo };
         var options = {
@@ -375,7 +410,7 @@
         var response = await fetch("http://localhost:3030/allUsers", options);
         var json = await response.json();
         for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here3').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos +'</option>';
+            document.getElementById('add-here3').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '</option>';
         }
 
     }
@@ -385,16 +420,18 @@
         var selected = document.getElementById('add-here').value;
         var selected2 = document.getElementById('add-here2').value;
         var selected3 = document.getElementById('add-here3').value;
-        console.log(selected);
-        console.log(selected2);
-        
+        var selected4 = document.getElementById('fe').value;
+
+        console.log(selected4);
+
         document.getElementById('senAdvisory').onclick = async function () {
             const idAlumno = selected;
             const idMateria = selected2;
             const idAsesor = selected3;
-            const fecha = "24/07/2022 10:30";
-            
-            const data = {idAlumno,idAsesor,idMateria,fecha};
+            const fecha = selected4;
+
+            const data = { idAlumno, idAsesor, idMateria, fecha };
+            console.log(data);
             var options = {
                 method: 'POST',
                 headers: {
@@ -406,19 +443,17 @@
             console.log(response2);
             var json2 = await response2.json();
             console.log(json2);
-            if(json2.msg === "Correcto"){
-                alert("Se agregó");
+            if (json2.msg === "Correcto") {
+                alert("Se agregó una nueva asesoría");
+            }else{
+                alert("Favor de verificar datos");
             }
         };
     }
 
-function selectedData(){
-    const selected = document.getElementById('add-here4').value;
-    const selected2 = document.getElementById('add-here5').value;
-}
+    async function selectedValueAsesorParaAsesoria() {
 
-async function selectedValueAsesorParaAsesoria(){
-    var options2 = {
+        var options2 = {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -430,8 +465,77 @@ async function selectedValueAsesorParaAsesoria(){
         var json2 = await response2.json();
         console.log(json2);
         for (i = 0; json2.results.length; i++) {
-            document.getElementById('add-here5').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre +'</option>'
+            document.getElementById('add-here5').innerHTML += '<option value =' + json2.results[i].id + '>' + json2.results[i].nombre + '</option>'
         }
-}
+    }
 
+    document.getElementById('asignar').onclick = async function () {
+        const element1 = document.getElementById('add-here4').value;
+        const element2 = document.getElementById('add-here5').value;
+
+        const idUsuario = element1;
+        const idMateria = element2;
+
+        const data = { idUsuario, idMateria };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response2 = await fetch("http://localhost:3030/claseMaestro", options);
+        console.log(response2);
+        var json2 = await response2.json();
+        console.log(json2);
+        if (json2.msg === "Correcto") {
+            alert("Se agregó");
+        }
+    }
+
+    document.getElementById('report').onclick = async function () {
+        document.getElementById('report').id = "bai";
+        var tipo = "ASESOR";
+        var data = { tipo:tipo };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response = await fetch("http://localhost:3030/allUsers", options);
+        console.log(response);
+        var json = await response.json();
+        for (i = 0; json.results.length; i++) {
+            document.getElementById('add-here6').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '</option>';
+        }
+    }
+
+    async function dateSelect() {
+        const date = document.getElementById('fe').value;
+        const data = { fecha: date };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response = await fetch("http://localhost:3030/validacionAd", options);
+        var json = await response.json();
+        if (json.results) {
+            alert("Fecha disponible");
+        } else {
+            alert("Fecha no disponible");
+        }
+        console.log(date);
+    }
+    document.getElementById('reporte').onclick = async function (){
+       const dato = document.getElementById('add-here6').value;
+       sessionStorage.setItem("idUsuario",dato);
+       window.location.replace("reporte.html");
+      
+
+    }
 </script>

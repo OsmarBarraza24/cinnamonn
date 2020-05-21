@@ -11,12 +11,15 @@
 
 <body onload="obtenerDatos()">
     <div class="container-fluid">
-        <header class="row">
-            <div class="col-md-8">
+        <header class="row align-items-center">
+            <div class="col-md-6">
                 <h1>Asesorias y cursos</h1>
             </div>
             <div class="col-md-3 align-self-end">
                 <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
+            </div>
+            <div class="col-md-2 aling-self-center">
+                <button onclick="quitApp()" class="btn btn-secondary">Cerrar sesión</button>
             </div>
         </header>
     </div>
@@ -99,11 +102,11 @@
             console.log(asesorias.asesor, asesorias.materia);
             for (i = 0; i < json2.results.length; i++) {
                 document.getElementById("add-here").innerHTML += [' <tr>' +
-                    +"" + '<td scope ="row">' + json2.results[i].materia + '</td>'
+                    + "" + '<td scope ="row">' + json2.results[i].materia + '</td>'
                     + "" + '<td id="nombreA">' + json2.results[i].asesor + '</td>'
                     + "" + '<td id="semestre">' + semestre + '</td>'
                     + "" + '<td>922 CITEV</td>'
-                    + "" + '<td id="fecha">' + json2.results[i].fecha + '</tr>']
+                    + "" + '<td id="fecha">' + json2.results[i].fecha + ' </td> </tr>']
             }
         }
 

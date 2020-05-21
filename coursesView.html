@@ -32,33 +32,42 @@
             <hr>
 
             <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Materia :</label>
-                            <select onchange="dataSelected()" class="form-control" id="add-here">
+                <form action="" method="POST">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Materia :</label>
+                                <select onchange="dataSelected()" class="form-control" id="add-here">
 
-                            </select>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <div class="form-group">
-                            <label for="exampleFormControlSelect1">Asesor :</label>
-                            <select class="form-control" id="add-here2">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <div class="form-group">
+                                <label for="exampleFormControlSelect1">Asesor :</label>
+                                <select class="form-control" id="add-here2">
 
-                            </select>
+                                </select>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="row justify-content-center">
-                    <div class="col-md-8">
-                        <label for="exampleFormControlSelect1">Fecha :</label>
-                        <input onchange="dateSelect()" class="form-control" type="date" id="datee" name="trip-start"
-                            value="22/07/2020" min="2020-05-19" max="2020-12-31">
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <label for="exampleFormControlSelect1">Fecha :</label>
+                            <input onchange="dateSelect()" class="form-control" type="date" id="datee" name="trip-start"
+                                value="22/07/2020" min="2020-05-19" max="2020-12-31">
+                        </div>
+
                     </div>
-                </div>
+                    <div class="row justify-content-center">
+                        <div class="col-md-8">
+                            <button id="senAdvisory" style="margin-top:10px" class="btn btn-primary">Tomar asesoría</button>
+                        </div>
+                    </div>
+
+                </form>
             </div>
 
         </div>
@@ -135,11 +144,38 @@
         var json = await response.json();
         if (json.results) {
             alert("Fecha disponible");
-        }else{
+        } else {
             alert("Fecha no disponible");
         }
         console.log(date);
     }
+
+    document.getElementById('senAdvisory').onclick = async function (e) {
+        e.preventDefault();
+        const idAlumno = sessionStorage.getItem("id");
+        const idMateria = document.getElementById('add-here').value;
+        const idAsesor = document.getElementById('add-here2').value;
+        const fecha = document.getElementById('datee').value;
+
+        const data = { idAlumno, idAsesor, idMateria, fecha };
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        };
+        var response2 = await fetch("http://localhost:3030/newAdvisory", options);
+        console.log(response2);
+        var json2 = await response2.json();
+        console.log(json2);
+        if (json2.msg === "Correcto") {
+            alert("Se agregó una nueva asesoría");
+            window.location.replace('index.html');
+        }else{
+            alert("No se ha podido agregar la asesoria, verificar tus datos");
+        }
+    };
 </script>
 
 </html>

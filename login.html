@@ -62,7 +62,7 @@
                 },
                 body: JSON.stringify(data)
             }
-            const response = await fetch("http://192.168.0.11:3030/signIn", options);
+            const response = await fetch("http://localhost:3030/signIn", options);
             console.log(response);
             const json = await response.json();
             console.log(json);

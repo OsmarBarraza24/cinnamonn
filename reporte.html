@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <header class="row align-items-center">
+            <div class="col-md-6">
+                <h1>Asesorias y cursos</h1>
+            </div>
+            <div class="col-md-3 align-self-end">
+                <p>Bienvenido, <strong id="nombre">Osmar Barraza</strong> </p>
+            </div>
+            <div class="col-md-2 aling-self-center">
+                <button onclick="quitApp()" class="btn btn-secondary">Cerrar sesión</button>
+            </div>
+        </header>
+        <div class="container">
+            <div class="row container-main">
+                <div class="col">
+                    <h3>Reporte de asesorias</h3>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">Id Alumno</th>
+                            <th scope="col">Clase</th>
+                            <th scope="col">Asesor</th>
+                            <th scope="col">Aula</th>
+                            <th scope="col">Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody id="add-here">
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <script src="js/jquery-3.5.0.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <script>
+              var nombre = sessionStorage.getItem("nombre");
+    var apellidos = sessionStorage.getItem("apellidos");
+    var semestre = sessionStorage.getItem("semestre");
+    var fullName = nombre.concat(" " + apellidos);
+    if (sessionStorage.getItem('id')) {
+        document.getElementById('nombre').innerText = fullName;
+    }
+
+            window.onload = async function () {
+               const idAsesor = sessionStorage.getItem("idUsuario");
+               console.log(idAsesor);
+                const data = { idAsesor };
+                const options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                };
+                const response2 = await fetch("http://localhost:3030/advisoryPorAsesor", options);
+                console.log(response2);
+                const json2 = await response2.json();
+                console.log(json2);
+                for (i = 0; i < json2.datos.length; i++) {
+                document.getElementById("add-here").innerHTML += ' <tr>' +
+                    + "" + '<td scope ="row">' + json2.datos[i].idAlumno + '</td>'
+                    + "" + '<td >' + json2.datos[i].materia + '</td>'
+                    + "" + '<td>' + json2.datos[i].asesor + ' ' + json2.datos[i].apellidosAsesor + '</td>'
+                    + "" + '<td>922 CITEV</td>'
+                    + "" + '<td>' + json2.datos[i].fecha + '</td> </tr>'
+            }
+            }
+        </script>
+</body>
+
+</html>
