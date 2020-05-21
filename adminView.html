@@ -186,7 +186,7 @@
                             <div class="col-md-8">
                                 <div class="form-group">
                                     <label for="exampleFormControlSelect1">Materias para asesoría</label>
-                                    <select onchange="selectedValue()" class="form-control" id="add-here2">
+                                    <select onchange="selectedValueMaterias()" class="form-control" id="add-here2">
                                     </select>
                                 </div>
                             </div>
@@ -397,26 +397,6 @@
         }
     }
 
-    document.getElementById('showAll').onclick = async function () {
-        document.getElementById('showAll').id = "adios";
-        var tipo = "ASESOR";
-        var data = { tipo };
-        var options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        };
-        var response = await fetch("http://localhost:3030/allUsers", options);
-        var json = await response.json();
-        for (i = 0; json.results.length; i++) {
-            document.getElementById('add-here3').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].nombre + ' ' + json.results[i].apellidos + '</option>';
-        }
-
-    }
-
-
     function selectedValue() {
         var selected = document.getElementById('add-here').value;
         var selected2 = document.getElementById('add-here2').value;
@@ -541,5 +521,21 @@
        window.location.replace("reporte.html");
       
 
+    }
+
+    async function selectedValueMaterias(){
+        var options = {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({id: document.getElementById('add-here2').value})
+        }
+        var response = await fetch("http://localhost:3030/advisorClass", options);
+        var json = await response.json();
+        console.log(json);
+        for (i = 0; json.results.length; i++) {
+            document.getElementById('add-here3').innerHTML += '<option value =' + json.results[i].id + '>' + json.results[i].asesor + ' ' + json.results[i].apellidosAsesor + '</option>';
+        }
     }
 </script>
